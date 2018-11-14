@@ -1,0 +1,46 @@
+﻿<div class="node" 
+     function-node-view=""
+     id="{{::funcNVCtrl.node.id}}">
+    <div class="title" title="{{::funcNVCtrl.nodeTitle | translate}}">
+        {{::funcNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::funcNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="input-ports">
+            <div class="port is-terminator"
+                 id="{{::funcNVCtrl.node.inputPort.id}}"
+                 title="{{::funcNVCtrl.node.inputPort.title | translate}}">
+                {{::funcNVCtrl.node.inputPort.marker}}
+            </div>
+        </div>
+        <div class="as-row">
+            <input type="text" class="two-size-centered" placeholder="?" autocomplete="off" maxlength="9"                   
+                   title="{{funcNVCtrl.viewModel.fromValidationError | translate}}"
+                   ng-trim="true"
+                   ng-class="{'invalid' : !funcNVCtrl.viewModel.isFromValid}"
+                   ng-disabled="::funcNVCtrl.isReadOnly"
+                   ng-model="funcNVCtrl.viewModel.from"                   
+                   ng-keydown="funcNVCtrl.onKeyDown($event, 'OnlyNumeric')"
+                   ng-paste="funcNVCtrl.onPaste($event, 'OnlyNumeric')"
+                   ng-change="funcNVCtrl.emitSignal()" />
+            <div class="divider">to</div>
+            <input type="text" class="two-size-centered" placeholder="?" autocomplete="off" maxlength="9"                   
+                   title="{{funcNVCtrl.viewModel.toValidationError | translate}}"                   
+                   ng-trim="true"
+                   ng-class="{'invalid' : !funcNVCtrl.viewModel.isToValid}"
+                   ng-disabled="::funcNVCtrl.isReadOnly"
+                   ng-model="funcNVCtrl.viewModel.to"                                      
+                   ng-keydown="funcNVCtrl.onKeyDown($event, 'OnlyNumeric')"
+                   ng-paste="funcNVCtrl.onPaste($event, 'OnlyNumeric')"
+                   ng-change="funcNVCtrl.emitSignal()" />
+        </div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::funcNVCtrl.node.outputPort.id}}"
+                 title="{{::funcNVCtrl.node.outputPort.title | translate}}">
+                {{::funcNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+    <div class="node-debug" title="?">?</div>
+</div>

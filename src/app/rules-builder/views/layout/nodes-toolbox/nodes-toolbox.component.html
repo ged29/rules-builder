@@ -1,0 +1,8 @@
+<div *ngFor="let toolboxGroup of toolboxGroups">
+  <div [attr.data-target]="'#items-in-' + toolboxGroup.name" data-toggle="collapse" class="group-name acc-opener">{{toolboxGroup.caption}}</div>
+  <div [attr.id]="'items-in-' + toolboxGroup.name" class="collapse ">
+    <div *ngFor="let toolboxNode of toolboxGroup.items">
+      <div>{{toolboxNode.caption}}</div>
+    </div>
+  </div>
+</div>

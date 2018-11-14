@@ -1,0 +1,24 @@
+﻿<div class="node one-size" 
+     emitter-node-view=""
+     id="{{::emitterNVCtrl.node.id}}"
+     ng-class="{'moved': emitterNVCtrl.node.isMoved, 'selected' : emitterNVCtrl.node.isSelected}"
+     ng-mousedown="emitterNVCtrl.onNodeMouseDown($event)">
+    <div class="title" title="{{::emitterNVCtrl.nodeTitle}}">
+        {{::emitterNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::emitterNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="text-label">
+            {{::"BehaviorDesigner.Layout.TextLabelsOfNodes.Value" | translate}}
+        </div>
+        <div class="output-ports">
+            <div class="port"
+                 id="{{::emitterNVCtrl.node.outputPort.id}}"
+                 title="{{::emitterNVCtrl.node.outputPort.title | translate}}"
+                 ng-class="{'is-terminator' : emitterNVCtrl.node.outputPort.isTerminator, 'selected': emitterNVCtrl.node.outputPort.isSelected}"
+                 ng-mousedown="emitterNVCtrl.onPortMouseDown(emitterNVCtrl.node.outputPort, $event)">
+                {{::emitterNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+</div>

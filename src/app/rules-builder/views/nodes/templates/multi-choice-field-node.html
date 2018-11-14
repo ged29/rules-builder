@@ -1,0 +1,25 @@
+﻿<div class="node one-size"
+     multi-choice-field-node-view=""
+     id="{{::mltChFldNVCtrl.node.id}}">
+    <div class="title" title="{{::mltChFldNVCtrl.nodeTitle | translate}}">
+        {{::mltChFldNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::mltChFldNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="text-label">
+            {{::"BehaviorDesigner.Layout.TextLabelsOfNodes.Value" | translate}}
+        </div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::mltChFldNVCtrl.node.outputPort.id}}"
+                 title="{{::mltChFldNVCtrl.node.outputPort.title | translate}}">
+                {{::mltChFldNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+    <multi-choice-dropdown-editor class="inner-dropdown-editor as-drop-down"
+                                  checked-opts-display-mode="1"
+                                  options="mltChFldNVCtrl.viewModel.options"
+                                  changed="mltChFldNVCtrl.onChanged(checkedOpts)">
+    </multi-choice-dropdown-editor>
+</div>

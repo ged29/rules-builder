@@ -1,0 +1,33 @@
+﻿<div class="node one-size" 
+     is-date-include-node-view=""
+     id="{{::isDateIncludeNVCtrl.node.id}}">
+    <div class="title" title="{{::isDateIncludeNVCtrl.nodeTitle | translate}}">
+        {{::isDateIncludeNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::isDateIncludeNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="input-ports">
+            <div class="port is-terminator"
+                 id="{{::isDateIncludeNVCtrl.node.inputPort.id}}"
+                 title="{{::isDateIncludeNVCtrl.node.inputPort.title | translate}}">
+                {{::isDateIncludeNVCtrl.node.inputPort.marker}}
+            </div>
+        </div>
+        <div class="body">
+            <dropdown-editor class="inner-dropdown-editor inlined centered"
+                             disabled="::isDateIncludeNVCtrl.isReadOnly"
+                             value="isDateIncludeNVCtrl.viewModel.selectedDateFormat"
+                             options="isDateIncludeNVCtrl.options"
+                             changed="isDateIncludeNVCtrl.onChanged(value)">
+            </dropdown-editor>
+        </div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::isDateIncludeNVCtrl.node.outputPort.id}}"
+                 title="{{::isDateIncludeNVCtrl.node.outputPort.title | translate}}">
+                {{::isDateIncludeNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>       
+    </div>
+    <div class="node-debug" title="?">?</div>
+</div>

@@ -1,0 +1,19 @@
+﻿<div class="node one-size"
+     emitter-node-view=""
+     id="{{::emitterNVCtrl.node.id}}">
+    <div class="title" title="{{::emitterNVCtrl.nodeTitle | translate}}">
+        {{::emitterNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::emitterNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="body brace">&nbsp;</div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::emitterNVCtrl.node.outputPort.id}}"
+                 title="{{::emitterNVCtrl.node.outputPort.title | translate}}">
+                {{::emitterNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+    <div class="node-debug">{{::emitterNVCtrl.viewModel.today}}</div>
+</div>

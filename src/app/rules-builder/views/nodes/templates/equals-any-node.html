@@ -1,0 +1,43 @@
+﻿<div class="node"
+     equal-all-node-view=""
+     id="{{::equalAllNVCtrl.node.id}}">
+    <div class="title" title="{{::equalAllNVCtrl.nodeTitle}}">
+        {{::equalAllNVCtrl.nodeCaption }}
+        <span ng-if="behaviorCtrl.inDevMode">({{::equalAllNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="input-ports">
+            <div class="port is-terminator"
+                 id="{{::equalAllNVCtrl.node.inputPort.id}}"
+                 title="{{::equalAllNVCtrl.node.inputPort.title | translate}}">
+                {{::equalAllNVCtrl.node.inputPort.marker}}
+            </div>
+        </div>
+        <div class="body" ng-if="equalAllNVCtrl.viewModel.modelType == 0">
+            <input type="text"
+                   placeholder="{{::equalAllNVCtrl.viewModel.controlAttrs.fieldPlaceholder | translate}}"
+                   maxlength="{{::equalAllNVCtrl.viewModel.controlAttrs.fieldLength}}"
+                   title="{{equalAllNVCtrl.viewModel.validationError | translate}}"
+                   ng-class="{'invalid' : !equalAllNVCtrl.viewModel.isValid}"
+                   ng-trim="true"
+                   ng-disabled="::equalAllNVCtrl.isReadOnly"
+                   ng-model="equalAllNVCtrl.viewModel.value"                  
+                   ng-change="equalAllNVCtrl.emitSignal()" />
+        </div>
+        <multi-choice-dropdown-editor ng-if="equalAllNVCtrl.viewModel.modelType == 1"
+                                      class="inner-dropdown-editor"
+                                      checked-opts-display-mode="0"
+                                      disabled="::equalAllNVCtrl.isReadOnly"
+                                      options="equalAllNVCtrl.viewModel.options"
+                                      changed="equalAllNVCtrl.onChanged(checkedOpts)">
+        </multi-choice-dropdown-editor>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{equalAllNVCtrl.node.outputPort.id}}"
+                 title="{{::equalAllNVCtrl.node.outputPort.title | translate}}">
+                {{::equalAllNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+    <div class="node-debug" title="?">?</div>
+</div>

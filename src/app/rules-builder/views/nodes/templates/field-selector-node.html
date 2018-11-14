@@ -1,0 +1,26 @@
+﻿<div class="node one-size" 
+     selector-node-view=""
+     id="{{::selectNVCtrl.node.id}}">
+    <div class="title" title="{{::selectNVCtrl.nodeTitle | translate}}">
+        {{::selectNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::selectNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="text-label">
+            {{::"BehaviorDesigner.Layout.TextLabelsOfNodes.Value" | translate}}
+        </div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::selectNVCtrl.node.outputPort.id}}"
+                 title="{{::selectNVCtrl.node.outputPort.title | translate}}">
+                {{::selectNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+    <dropdown-editor class="inner-dropdown-editor"
+                     disabled="::selectNVCtrl.isReadOnly"
+                     value="selectNVCtrl.viewModel.selectedOptionId"
+                     options="selectNVCtrl.viewModel.options"
+                     changed="selectNVCtrl.onChanged(value)">
+    </dropdown-editor>
+</div>

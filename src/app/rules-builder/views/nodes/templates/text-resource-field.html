@@ -1,0 +1,24 @@
+﻿<div class="node" 
+     emitter-node-view=""
+     id="{{::emitterNVCtrl.node.id}}">
+    <div class="title" title="{{::emitterNVCtrl.nodeTitle}}">
+        {{::emitterNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::emitterNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="body">
+            <textarea readonly="" 
+                      ng-model="::emitterNVCtrl.viewModel.value"
+                      ng-class="{'invalid' : !emitterNVCtrl.viewModel.isValid}"
+                      title="{{emitterNVCtrl.viewModel.validationError | translate}}"
+                      placeholder="{{::'BehaviorDesigner.Layout.Nodes.textResourceField.placeholder' | translate}}"></textarea>            
+        </div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::emitterNVCtrl.node.outputPort.id}}"
+                 title="{{::emitterNVCtrl.node.outputPort.title | translate}}">
+                {{::emitterNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+</div>

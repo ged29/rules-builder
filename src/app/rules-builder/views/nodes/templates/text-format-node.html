@@ -1,0 +1,27 @@
+﻿<div class="node"
+     text-format-node-view=""
+     id="{{::textFormatNVCtrl.node.id}}">
+    <div class="title" title="{{::textFormatNVCtrl.nodeTitle}}">
+        {{::textFormatNVCtrl.nodeCaption }}
+        <span ng-if="behaviorCtrl.inDevMode">({{::textFormatNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="input-ports unshrink-margin">
+            <div class="port" ng-class="{'is-terminator' : inputPort.isTerminator}"
+                 id="{{::inputPort.id}}"
+                 title="{{::inputPort.title | translate}}"
+                 ng-repeat="inputPort in textFormatNVCtrl.node.inputPorts track by inputPort.index">
+                {{::inputPort.marker}}
+            </div>
+        </div>
+        <div class="body">&nbsp;</div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::textFormatNVCtrl.node.outputPort.id}}"
+                 title="{{::textFormatNVCtrl.node.outputPort.title | translate}}">
+                {{::textFormatNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>
+    </div>
+    <div class="node-debug" title="?">?</div>
+</div>

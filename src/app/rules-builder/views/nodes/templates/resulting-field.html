@@ -1,0 +1,19 @@
+﻿<div class="node resulting-node"
+     function-node-view=""
+     id="{{::funcNVCtrl.node.id}}">
+    <div class="title" title="{{::funcNVCtrl.node.descriptor.fieldName}} ({{::funcNVCtrl.node.descriptor.title | translate }})">
+        {{::funcNVCtrl.node.descriptor.fieldName }}
+        <span ng-if="behaviorCtrl.inDevMode">({{::funcNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="input-ports">
+            <div class="port is-terminator"
+                 id="{{::funcNVCtrl.node.inputPort.id}}"
+                 title="{{::funcNVCtrl.node.inputPort.title | translate}}">
+                {{::funcNVCtrl.node.inputPort.marker}}
+            </div>
+        </div>
+        <div class="text-label">{{::funcNVCtrl.node.descriptor.behaviourProperty}}</div>
+    </div>
+    <div class="node-debug" title="?">?</div>
+</div>

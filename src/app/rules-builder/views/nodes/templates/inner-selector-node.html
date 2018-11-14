@@ -1,0 +1,34 @@
+﻿<div class="node one-size" 
+     selector-node-view=""
+     id="{{::selectNVCtrl.node.id}}">
+    <div class="title" title="{{::selectNVCtrl.nodeTitle | translate}}">
+        {{::selectNVCtrl.nodeCaption }}
+        <span data-ng-if="behaviorCtrl.inDevMode">({{::selectNVCtrl.node.sequentialNumber}})</span>
+    </div>
+    <div class="functional-block">
+        <div class="input-ports" data-ng-if="::selectNVCtrl.node.hasInputPorts">
+            <div class="port is-terminator"
+                 id="{{::selectNVCtrl.node.inputPort.id}}"
+                 title="{{::selectNVCtrl.node.inputPort.title | translate}}">
+                {{::selectNVCtrl.node.inputPort.marker}}
+            </div>
+        </div>
+        <div class="body">
+            <dropdown-editor class="inner-dropdown-editor inlined" 
+                             ng-class="::{'centered' : selectNVCtrl.node.hasInputPorts}"
+                             disabled="::selectNVCtrl.isReadOnly"
+                             value="selectNVCtrl.viewModel.selectedOptionId"
+                             options="selectNVCtrl.viewModel.options"
+                             changed="selectNVCtrl.onChanged(value)">
+            </dropdown-editor>
+        </div>
+        <div class="output-ports">
+            <div class="port is-terminator"
+                 id="{{::selectNVCtrl.node.outputPort.id}}"
+                 title="{{::selectNVCtrl.node.outputPort.title | translate}}">
+                {{::selectNVCtrl.node.outputPort.marker}}
+            </div>
+        </div>       
+    </div>
+    <div data-ng-if="::selectNVCtrl.node.hasInputPorts" class="node-debug" title="?">?</div>
+</div>
