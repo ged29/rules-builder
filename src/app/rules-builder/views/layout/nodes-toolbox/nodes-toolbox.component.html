@@ -1,8 +1,14 @@
-<div *ngFor="let toolboxGroup of toolboxGroups">
-  <div [attr.data-target]="'#items-in-' + toolboxGroup.name" data-toggle="collapse" class="group-name acc-opener">{{toolboxGroup.caption}}</div>
-  <div [attr.id]="'items-in-' + toolboxGroup.name" class="collapse ">
-    <div *ngFor="let toolboxNode of toolboxGroup.items">
-      <div>{{toolboxNode.caption}}</div>
+<div class="nodes-panel">
+  <div class="aside-accordion"
+      *ngFor="let toolboxGroup of toolboxGroups">
+    <div [attr.data-target]="'#items-in-' + toolboxGroup.name" 
+          data-toggle="collapse" 
+          class="acc-opener group-name">{{toolboxGroup.caption}}</div>
+    <div class="acc-slider show" [attr.id]="'items-in-' + toolboxGroup.name">
+        <div *ngFor="let toolboxNode of toolboxGroup.items"
+              class="droppable-item {{toolboxGroup.name}}"
+              [dndDraggable]="toolboxNode"
+              [dndEffectAllowed]="'copy'">{{toolboxNode.caption}}</div>
     </div>
   </div>
 </div>

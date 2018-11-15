@@ -1,6 +1,7 @@
-﻿import { EvaluationSource, PortType, NodeType } from "./common-enums";
+﻿import { EvaluationSource, PortType, NodeType, DragSource } from "./common-enums";
 import { IDroppableToolboxItem, INodeDescriptor, IPortDescriptor } from "./common-interfaces";
 import descriptorsGroups from "./config/descriptors-groups";
+import { utils } from "./utils/utils.service";
 
 class NodesRegistry {
     //inner cached groups of descriptors
@@ -33,7 +34,8 @@ class NodesRegistry {
                     caption: itemDescriptor.toolboxCaption || itemDescriptor.caption,
                     title: itemDescriptor.title,
                     groupName: groupName,
-                    isMatch: true
+                    isMatch: true,
+                    dragSource: DragSource.NodesToolbox
                 });
             }
         }
@@ -46,8 +48,9 @@ class NodesRegistry {
             name: groupName,
             caption: groupCaption,
             title: groupCaption,
+            isMatch: true,
             items: items,
-            isMatch: true
+            dragSource: DragSource.NodesToolbox
         });
     }
 
@@ -137,7 +140,7 @@ class NodesRegistry {
             throw `Can't find node descriptors for group = "${groupName}" and name = "${descriptorName}"`;
         }
 
-        return JSON.parse(JSON.stringify(this._allDescriptorsGroups[groupName][descriptorName]));
+        return utils.deepcopy(this._allDescriptorsGroups[groupName][descriptorName]);
     }
 
     getDescriptorForResultingField() {

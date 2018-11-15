@@ -1,13 +1,14 @@
 ﻿import Port from "./models/layout/port";
 import FunctionalNode from "./models/layout/node";
-import { CalculationType, DataType, EvaluationSource, NodeType, DateFormat, NumberFormat, PortType } from "./common-enums";
+import { CalculationType, DataType, EvaluationSource, NodeType, DateFormat, NumberFormat, PortType, DragSource } from "./common-enums";
 
 export interface IDroppableToolboxItem {
     name: string;
     caption: string;
-    title: string;
+    title: string;    
+    dragSource: DragSource;
     isMatch: boolean;
-    groupName?: string;
+    groupName?: string;    
     items?: IDroppableToolboxItem[];
 }
 

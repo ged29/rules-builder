@@ -1,0 +1,100 @@
+@import "../../../../base/mixin";
+@import "../../../../base/variables";
+
+.nodes-panel{
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: white; 
+    
+    .dndDragging{        
+        padding: 0 5px 0 32px;
+        border: 1px solid #808080;
+        border-radius: 3px;
+        box-shadow: 5px 5px 8px -3px rgba(0, 0, 0, 0.75);
+        background-color: none;
+    }   
+    
+    .dndDraggingSource{
+        padding: 1px 0 1px 2.143rem;
+        line-height: 1.8;
+        border: 1px solid white;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .aside-accordion{
+        .acc-opener {
+            display: block;
+            position: relative;
+            margin:0 -10px;
+            padding: 4px 20px 4px 10px;
+            color:@alt-text-color;
+            font-size:12px;
+            line-height:20px;
+            font-weight: bold;
+            text-transform:uppercase;
+            letter-spacing:0.042em;
+            cursor: pointer;
+            border:solid @base-border-color;
+            border-width:1px 0 0;
+            background:@tabs-bg;                 
+        }
+
+        .acc-slider {
+            margin:0 -10px;
+            padding:9px 10px 15px;
+            border:solid @base-border-color;
+            border-width:1px 0 0;
+        }
+
+        .group-name{
+            user-select: none;
+            white-space: nowrap;
+        }
+    }
+}
+
+.droppable-item {
+    user-select: none;
+    padding: 1px 0 1px 2.143rem;
+    line-height: 1.8;
+    cursor: pointer;
+    background: no-repeat 2px center !important;
+
+    &.constants {
+        background-image: url("../../../../images/behavior-designer/icon_ee_constant.png") !important;
+    }
+
+    &.aggregatedConditions {
+        background-image: url("../../../../images/behavior-designer/icon_ee_agr_cond_round.png") !important;
+    }
+
+    &.logicConditions {
+        background-image: url("../../../../images/behavior-designer/icon_ee_logic.png") !important;
+    }
+
+    &.comparisonConditions {
+        background-image: url("../../../../images/behavior-designer/icon_ee_comparison.png") !important;
+    }
+
+    &.math {
+        background-image: url("../../../../images/behavior-designer/icon_ee_math.png") !important;
+    }
+
+    &.formatting {
+        background-image: url("../../../../images/behavior-designer/icon_ee_formatting.png") !important;
+    }
+
+    &.calculations {
+        background-image: url("../../../../images/behavior-designer/icon_ee_calc.png") !important;
+    }
+
+    &.dateFunctions {
+        background-image: url("../../../../images/behavior-designer/icon_ee_date.png") !important;
+    }
+
+    &.system {
+        background-image: url("../../../../images/behavior-designer/icon_ee_system.png") !important;
+    }    
+}

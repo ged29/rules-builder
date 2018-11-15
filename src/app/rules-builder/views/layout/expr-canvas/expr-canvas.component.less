@@ -1,0 +1,90 @@
+:host {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}   
+    
+.expr-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    cursor: default;
+    background: #fff url("data:image/gif;base64,R0lGODlhCgAKAJEAAAAAAP///8zMzP///yH5BAEAAAMALAAAAAAKAAoAAAIJ1I6py+0Po2wFADs=");
+
+    #debug-canvas {
+        display: none;
+    }
+
+    svg:not(:root) {
+        overflow: visible;
+    }
+
+    .svg-connections-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+
+        .connection-group {
+
+            .phantom-connection {
+                stroke: #4f6870;
+                stroke-width: 2;
+                fill: none;
+                stroke-dasharray: 4;
+                stroke-dashoffset: 3;
+                stroke-linecap: round;
+
+                &.hasDropPortCandidate {
+                    stroke: #006000;
+                    stroke-width: 3;
+                    stroke-dasharray: 10;
+                }
+            }
+
+            .connection {
+                stroke: #4f6870;
+                stroke-width: 2;
+
+                &.selected {
+                    stroke: #8900f9;
+                    stroke-width: 3;
+                }
+            }
+
+            &:hover .connection {
+                stroke: #00a8f0;
+                stroke-width: 3;
+            }
+
+            .connection-underlayer {
+                stroke: rgba(255, 255, 255, 0);
+                stroke-width: 14;
+            }
+        }
+    }
+
+    textarea.invalid,
+    textarea.ng-invalid,
+    input[type="number"].invalid,
+    input[type="number"].ng-invalid,
+    input[type="text"].invalid,
+    textarea.ng-invalid-required,
+    input[type="text"].ng-invalid-required,
+    input[type="text"].ng-invalid,
+    div.invalid-required button,
+    div.invalid button,
+    .invalid .date-wrapper .value {
+        color: #cc472c;
+        border: 1px solid #cc472c;
+        box-shadow: 0 0 4px rgba(205,60,60, 0.3);
+        background: #ffd9d9 !important;
+    }
+}

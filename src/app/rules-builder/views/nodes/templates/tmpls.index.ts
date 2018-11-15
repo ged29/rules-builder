@@ -1,23 +1,23 @@
-﻿const emitter = "./emitter-node.html";
-const equalsAll = "./equals-all-node.html";
-const equalsAny = "./equals-any-node.html";
-const fieldSelector = "./field-selector-node.html";
-const func = "./function-node.html";
-const inRange = "./in-range-node.html";
-const innerSelector = "./inner-selector-node.html";
-const isDateInclude = "./is-date-include-node.html";
-const isMatch = "./is-match-node.html";
-const multiChoiceField = "./multi-choice-field-node.html";
-const resultingField = "./resulting-field.html";
-const today = "./today-node.html";
-const undefinedConstant = "./undefined-constant.html";
-const textJoin = "./text-join-node.html";
-const textFormat = "./text-format-node.html";
-const snapshotField = "./snapshot-field.html";
-const textResourceField = "./text-resource-field.html";
+﻿const emitter = require("./emitter-node.html");
+const equalsAll = require("./equals-all-node.html");
+const equalsAny = require("./equals-any-node.html");
+const fieldSelector = require("./field-selector-node.html");
+const func = require("./function-node.html");
+const inRange = require("./in-range-node.html");
+const innerSelector = require("./inner-selector-node.html");
+const isDateInclude = require("./is-date-include-node.html");
+const isMatch = require("./is-match-node.html");
+const multiChoiceField = require("./multi-choice-field-node.html");
+const resultingField = require("./resulting-field.html");
+const today = require("./today-node.html");
+const undefinedConstant = require("./undefined-constant.html");
+const textJoin = require("./text-join-node.html");
+const textFormat = require("./text-format-node.html");
+const snapshotField = require("./snapshot-field.html");
+const textResourceField = require("./text-resource-field.html");
 
-export const tmplsIndex = {
-    emitter,
+export const tmplsIndex = {    
+    emitter,    
     equalsAll,
     equalsAny,
     fieldSelector,
@@ -27,7 +27,7 @@ export const tmplsIndex = {
     isDateInclude,
     isMatch,
     multiChoiceField,
-    resultingField,
+    resultingField,    
     today,
     undefinedConstant,
     snapshotField,

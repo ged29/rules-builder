@@ -1,3 +1,19 @@
-<p>
-  expr-canvas works!
-</p>
+<div №vc class="expr-canvas" dndDropzone dndDragoverClass="toolboxNode-drag-over" (dndDrop)="onDrop($event)">
+  <canvas id="debug-canvas"></canvas>
+  <ul class="dropdown-menu context-menu"></ul>
+  <svg version="1.1" id="svg-base-connections-container" class="svg-connections-container" xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="phantom-connection" class="connection-group">
+      <line class="phantom-connection"></line>
+      <line class="connection-underlayer"></line>
+    </g>
+  </svg>
+  <div id="lasso"></div>
+  <div id="phantom-port" class="port"></div>  
+  <div id="paste-container-template" class="paste-container">
+    <p class="label-empty-paste">Paste container is empty</p>
+    <svg version="1.1" id="svg-paste-connections-container" class="svg-connections-container" xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+    </svg>
+  </div>
+</div>
