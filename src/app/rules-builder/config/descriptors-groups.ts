@@ -10,6 +10,10 @@ import { DataType, NodeType } from "../common-enums";
 import { IDescriptorsGroup } from "../common-interfaces";
 import { uuid } from "../../services/utils/uuid";
 import { tmplsIndex } from "../views/nodes/templates/tmpls.index";
+import { SelectorView } from "../views/nodes/selector.view";
+import { EmitterView } from "../views/nodes/emitter.view";
+import { FunctionView } from "../views/nodes/function.view";
+
 /**
  * Represents a dictionary of the logically grouped related NodeDescriptors configurations. 
  * It is a central storage of ExE configuration and it provides ExE as well as vForm Designer with the preconfigured metadata of fields and functions.
@@ -27,63 +31,35 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 input: [{ marker: "R", maxConnCount: 1, dataType: DataType.PendingAssignment }],
                 output: [{ marker: "R", isHidden: true }]
             },
-            templateId: tmplsIndex.resultingField,
+            viewClass: FunctionView,
+            template: tmplsIndex.resultingField,
             exportPriority: 0
         }]
     },
     "inputFields": {
         isToolboxGroup: false,
         isDebugPresent: false,
-        typeOfNodesInGroup: NodeType.InputField,        
+        typeOfNodesInGroup: NodeType.InputField,
         nodes: [
-            {
-                name: "choiceField",
-                modelCtor: Fields.SingleChoice,
-                ports: {
-                    output: [{ marker: "V", dataType: DataType.NumericField }]
-                },
-                templateId: tmplsIndex.fieldSelector,
-                exportPriority: 0
-            },
-            {
-                name: "multiChoiceField",
-                modelCtor: Fields.MultiChoice,
-                ports: {
-                    output: [{ marker: "V", dataType: DataType.AggregatedField }]
-                },
-                templateId: tmplsIndex.multiChoiceField,
-                exportPriority: 0
-            },
             {
                 name: "dateField",
                 modelCtor: Fields.Date,
                 ports: {
                     output: [{ marker: "V", dataType: DataType.DateField }]
                 },
-                templateId: tmplsIndex.emitter,
+                viewClass: EmitterView,
+                template: tmplsIndex.emitter,
                 exportPriority: 0
             },
             {
                 name: "timeField",
                 modelCtor: Fields.Time,
                 ports: {
-                    output: [{
-                        marker: "V",
-                        dataType: DataType.NumericTimeField,
-                        isCompatibleBy: (check) => (check.dt & DataType.NumericTimeField) === DataType.NumericTimeField && check.nodeName !== "CDRGlobal"
-                    }]
+                    output: [{ marker: "V", dataType: DataType.NumericTimeField }]
                 },
-                templateId: tmplsIndex.emitter,
+                viewClass: EmitterView,
+                template: tmplsIndex.emitter,
                 fieldLength: 5,
-                exportPriority: 0
-            },
-            {
-                name: "inputableField",
-                modelCtor: Fields.Inputable,
-                ports: {
-                    output: [{ marker: "V", dataType: DataType.PendingAssignment }]
-                },
-                templateId: tmplsIndex.emitter,
                 exportPriority: 0
             },
             {
@@ -92,7 +68,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 ports: {
                     output: [{ marker: "V", dataType: DataType.NumericField }]
                 },
-                templateId: tmplsIndex.emitter,
+                viewClass: EmitterView,
+                template: tmplsIndex.emitter,
                 fieldLength: 9,
                 exportPriority: 0
             },
@@ -102,61 +79,19 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 ports: {
                     output: [{ marker: "V", dataType: DataType.TextField }]
                 },
-                templateId: tmplsIndex.emitter,
+                viewClass: EmitterView,
+                template: tmplsIndex.emitter,
                 fieldLength: 300,
                 exportPriority: 0
             },
             {
-                name: "noneField",
+                name: "booleanField",
                 modelCtor: Fields.None,
                 ports: {
                     output: [{ marker: "V", dataType: DataType.BooleanField }]
                 },
-                templateId: tmplsIndex.fieldSelector,
-                exportPriority: 0
-            },
-            {
-                name: "textResourceField",
-                modelCtor: Fields.TextResource,
-                ports: {
-                    output: [{ marker: "V", dataType: DataType.TextResourceField }]
-                },
-                templateId: tmplsIndex.textResourceField,
-                exportPriority: 0
-            },
-            {
-                name: "queryField",
-                modelCtor: Fields.Query,
-                ports: {
-                    output: [{ marker: "V", dataType: DataType.BooleanField }]
-                },
-                templateId: tmplsIndex.innerSelector,
-                exportPriority: 0
-            }]
-    },
-    "outputFields": {
-        isToolboxGroup: false,
-        isDebugPresent: false,
-        typeOfNodesInGroup: NodeType.OutputField,
-        nodes: [
-            {
-                name: "outputField",
-                modelCtor: Fields.Numeric,
-                fieldLength: 9,
-                ports: {
-                    output: [{ marker: "V", dataType: DataType.NumericField }]
-                },
-                templateId: tmplsIndex.emitter,
-                exportPriority: 0
-            },
-            {
-                name: "snapshotField",
-                modelCtor: Fields.Snapshot,
-                ports: {
-                    input: [{ marker: "I", maxConnCount: 1, dataType: DataType.NumericField }],
-                    output: [{ marker: "V", dataType: DataType.NumericField }]
-                },
-                templateId: tmplsIndex.snapshotField,
+                viewClass: SelectorView,
+                template: tmplsIndex.fieldSelector,
                 exportPriority: 0
             }]
     },
@@ -173,7 +108,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 ports: {
                     output: [{ marker: "V", dataType: DataType.Numeric }]
                 },
-                templateId: tmplsIndex.emitter,
+                viewClass: EmitterView,
+                template: tmplsIndex.emitter,
                 fieldLength: 9,
                 exportPriority: 0
             },
@@ -184,7 +120,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 ports: {
                     output: [{ marker: "V", dataType: DataType.Text }]
                 },
-                templateId: tmplsIndex.emitter,
+                viewClass: EmitterView,
+                template: tmplsIndex.emitter,
                 fieldLength: 20,
                 exportPriority: 0
             },
@@ -195,9 +132,10 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 ports: {
                     output: [{ marker: "V", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.innerSelector,
+                viewClass: SelectorView,
+                template: tmplsIndex.innerSelector,
                 exportPriority: 0
-            },          
+            },
             {
                 name: "dateConstant",
                 caption: "Date",
@@ -205,64 +143,11 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 ports: {
                     output: [{ marker: "V", dataType: DataType.Date }]
                 },
-                templateId: tmplsIndex.emitter,
+                viewClass: EmitterView,
+                template: tmplsIndex.emitter,
                 fieldLength: 11,
                 exportPriority: 0
-            },
-            {
-                name: "undefinedNumericConstant",
-                caption: "Undefined (Numeric)",
-                modelCtor: Constants.UndefinedNumeric,
-                ports: {
-                    output: [{ marker: "V", dataType: DataType.Numeric }]
-                },
-                templateId: tmplsIndex.undefinedConstant,
-                exportPriority: 0
             }]
-    },
-    "aggregatedConditions": {
-        isToolboxGroup: true,
-        isDebugPresent: true,
-        typeOfNodesInGroup: NodeType.SimpleFunction,
-        caption: "Aggregated Conditions",
-        nodes: [
-            {
-                name: "countOfSelected",
-                caption: "CountOfSelected",
-                modelCtor: Functions.CountOfSelected,
-                ports: {
-                    input: [{ marker: "V", maxConnCount: 1, dataType: DataType.AggregatedField }],
-                    output: [{ marker: "R", dataType: DataType.Numeric }]
-                },
-                templateId: tmplsIndex.function,
-                exportPriority: 2,
-                isHidden: false
-            },
-            {
-                name: "countOfUnselected",
-                caption: "CountOfUnselected",
-                modelCtor: Functions.CountOfUnselected,
-                ports: {
-                    input: [{ marker: "V", maxConnCount: 1, dataType: DataType.AggregatedField }],
-                    output: [{ marker: "R", dataType: DataType.Numeric }]
-                },
-                templateId: tmplsIndex.function,
-                exportPriority: 2,
-                isHidden: true
-            },
-            {
-                name: "itemsCount",
-                caption: "ItemsCount",
-                modelCtor: Functions.ItemsCount,
-                ports: {
-                    input: [{ marker: "V", maxConnCount: 1, dataType: DataType.AggregatedField }],
-                    output: [{ marker: "R", dataType: DataType.Numeric }]
-                },
-                templateId: tmplsIndex.function,
-                exportPriority: 2,
-                isHidden: true
-            }
-        ]
     },
     "logicConditions": {
         isToolboxGroup: true,
@@ -278,7 +163,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     input: [{ marker: "V", dataType: DataType.Boolean }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -289,7 +175,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     input: [{ marker: "V", dataType: DataType.Boolean }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -300,7 +187,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     input: [{ marker: "V", maxConnCount: 1, dataType: DataType.Boolean }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             }]
     },
@@ -310,29 +198,6 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
         typeOfNodesInGroup: NodeType.SimpleFunction,
         caption: "Comparison conditions",
         nodes: [
-            {
-                name: "equalsAllComparisonCondition",
-                caption: "EqualsAll",
-                modelCtor: Functions.EqualsAll,
-                ports: {
-                    input: [{ marker: "V", maxConnCount: 1, dataType: DataType.AggregatedField }],
-                    output: [{ marker: "R", dataType: DataType.Boolean }]
-                },
-                templateId: tmplsIndex.equalsAll,
-                exportPriority: 1
-            },
-            {
-                name: "equalsAnyComparisonCondition",
-                caption: "EqualsAny",
-                modelCtor: Functions.EqualsAny,
-                ports: {
-                    input: [{ marker: "V", maxConnCount: 1, dataType: DataType.NumericField | DataType.AggregatedField }],
-                    output: [{ marker: "R", dataType: DataType.Boolean }]
-                },
-                templateId: tmplsIndex.equalsAny,
-                fieldLength: 100,
-                exportPriority: 1
-            },
             {
                 name: "ifThenElse",
                 caption: "If A then B else C",
@@ -346,7 +211,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "C", maxConnCount: 1, dataType: DataType.All }],
                     output: [{ marker: "R", dataType: DataType.All }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -360,7 +226,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.All }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -374,7 +241,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.All }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -388,7 +256,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.NumericDateTimeField }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -402,7 +271,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.NumericDateTimeField }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -416,7 +286,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.NumericDateTimeField }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -430,7 +301,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.NumericDateTimeField }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -446,7 +318,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -457,7 +330,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     input: [{ marker: "V", maxConnCount: 1, dataType: DataType.Numeric }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.inRange,
+                viewClass: FunctionView,
+                template: tmplsIndex.inRange,
                 fieldLength: 9,
                 exportPriority: 1
             },
@@ -469,7 +343,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     input: [{ marker: "V", maxConnCount: 1, dataType: DataType.Text }],
                     output: [{ marker: "R", dataType: DataType.Boolean }]
                 },
-                templateId: tmplsIndex.isMatch,
+                viewClass: FunctionView,
+                template: tmplsIndex.isMatch,
                 fieldLength: 500,
                 exportPriority: 1
             }]
@@ -490,7 +365,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.Date }],
                     output: [{ marker: "R", dataType: DataType.Numeric }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -501,7 +377,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     input: [{ marker: "V", dataType: DataType.Numeric }],
                     output: [{ marker: "R", dataType: DataType.Numeric }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -515,7 +392,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.Numeric }],
                     output: [{ marker: "R", dataType: DataType.Numeric }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -527,7 +405,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                     input: [{ marker: "V", dataType: DataType.Numeric }],
                     output: [{ marker: "R", dataType: DataType.Numeric }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             },
             {
@@ -541,7 +420,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                         { marker: "B", maxConnCount: 1, dataType: DataType.Numeric }],
                     output: [{ marker: "R", dataType: DataType.Numeric }]
                 },
-                templateId: tmplsIndex.function,
+                viewClass: FunctionView,
+                template: tmplsIndex.function,
                 exportPriority: 2
             }]
     },
@@ -558,7 +438,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 input: [{ marker: "V", maxConnCount: 1, dataType: DataType.Numeric }],
                 output: [{ marker: "V", maxConnCount: 1, dataType: DataType.Text }]
             },
-            templateId: tmplsIndex.innerSelector,
+            viewClass: SelectorView,
+            template: tmplsIndex.innerSelector,
             exportPriority: 1
         },
         {
@@ -569,84 +450,8 @@ let descriptorsGroups: { [groupName: string]: IDescriptorsGroup } = {
                 input: [{ marker: "V", maxConnCount: 1, dataType: DataType.Date }],
                 output: [{ marker: "V", maxConnCount: 1, dataType: DataType.Text }]
             },
-            templateId: tmplsIndex.innerSelector,
-            exportPriority: 1
-        },
-        {
-            name: "textJoin",
-            caption: "Text Join",
-            modelCtor: Functions.TextJoin,
-            nodeType: NodeType.DynamicPortsFunction,
-            ports: {
-                input: [
-                    { marker: "1", maxConnCount: 1, dataType: DataType.TextField },
-                    { marker: "2", maxConnCount: 1, dataType: DataType.TextField }],
-                output: [{ marker: "R", dataType: DataType.Text }]
-            },
-            templateId: tmplsIndex.textJoin,
-            fieldLength: 1,
-            exportPriority: 1
-        },
-        {
-            name: "textFormat",
-            caption: "Text Format",
-            modelCtor: Functions.TextFormat,
-            nodeType: NodeType.DynamicPortsFunction,
-            ports: {
-                input: [{ marker: "T", maxConnCount: 1, dataType: DataType.TextResourceField, isDataTypeExactMatch: true }],
-                output: [{ marker: "R", dataType: DataType.Text }]
-            },
-            templateId: tmplsIndex.textFormat,
-            exportPriority: 1
-        }]
-    },
-    "dateFunctions": {
-        isToolboxGroup: true,
-        isDebugPresent: true,
-        typeOfNodesInGroup: NodeType.SimpleFunction,
-        caption: "Date functions",
-        nodes: [{
-            name: "isDateInclude",
-            caption: "IsDateInclude",
-            modelCtor: Functions.IsDateInclude,
-            ports: {
-                input: [{ marker: "V", maxConnCount: 1, dataType: DataType.DateField, isDataTypeExactMatch: true }],
-                output: [{ marker: "R", dataType: DataType.Boolean }]
-            },
-            templateId: tmplsIndex.isDateInclude,
-            exportPriority: 1
-        },
-        {
-            name: "getDay",
-            caption: "GetDay",
-            modelCtor: Functions.GetDay,
-            ports: {
-                input: [{ marker: "V", maxConnCount: 1, dataType: DataType.DateField, isDataTypeExactMatch: true }],
-                output: [{ marker: "R", dataType: DataType.Numeric }]
-            },
-            templateId: tmplsIndex.function,
-            exportPriority: 1
-        },
-        {
-            name: "getMonth",
-            caption: "GetMonth",
-            modelCtor: Functions.GetMonth,
-            ports: {
-                input: [{ marker: "V", maxConnCount: 1, dataType: DataType.DateField, isDataTypeExactMatch: true }],
-                output: [{ marker: "R", dataType: DataType.Numeric }]
-            },
-            templateId: tmplsIndex.function,
-            exportPriority: 1
-        },
-        {
-            name: "getYear",
-            caption: "GetYear",
-            modelCtor: Functions.GetYear,
-            ports: {
-                input: [{ marker: "V", maxConnCount: 1, dataType: DataType.DateField, isDataTypeExactMatch: true }],
-                output: [{ marker: "R", dataType: DataType.Numeric }]
-            },
-            templateId: tmplsIndex.function,
+            viewClass: SelectorView,
+            template: tmplsIndex.innerSelector,
             exportPriority: 1
         }]
     }

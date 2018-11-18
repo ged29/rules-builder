@@ -1,10 +1,9 @@
-import { Component, OnInit, ElementRef, OnDestroy, ViewContainerRef, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy, ViewContainerRef, ViewChild, ComponentFactoryResolver, Compiler, NgModule, ModuleWithComponentFactories } from '@angular/core';
 import { IDroppableToolboxItem } from '../../../common-interfaces';
-import { DropEffect } from 'ngx-drag-drop';
 import Canvas from "../../../models/layout/canvas";
-import { VisualStateType } from "../../../common-enums";
 import { ICoordinate } from "../../../graphic-common-interfaces";
 import nodesRegistry from "../../../nodes-registry";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'expr-canvas',
@@ -24,8 +23,11 @@ export class ExprCanvasComponent implements OnInit, OnDestroy {
 
   @ViewChild('vc', { read: ViewContainerRef }) exprCanvas: ViewContainerRef;
 
-  constructor(elementRef: ElementRef<HTMLDivElement>, tmpl : TemplateRef) {
-    this.exprCanvasHost = elementRef.nativeElement;
+  constructor(
+    hostElementRef: ElementRef<HTMLDivElement>,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private compiler: Compiler) {
+    this.exprCanvasHost = hostElementRef.nativeElement;
   }
 
   ngOnInit() {
@@ -36,10 +38,22 @@ export class ExprCanvasComponent implements OnInit, OnDestroy {
   }
 
   onDrop(drop: TDrop) {
-    let { data: toolboxNode, event } = drop,
+    let { event, data: toolboxNode } = drop,
+      canvasCoordinate = this.fromDocumentToCanvasCoordinate({ x: event.clientX, y: event.clientY }, true),
       nodeDescriptor = nodesRegistry.getDescriptorByGroupAndName(toolboxNode.groupName, toolboxNode.name),
       modelCtor = nodeDescriptor.modelCtor,
-      model = new modelCtor(nodeDescriptor, true);
+      model = new modelCtor(nodeDescriptor, true),
+      decoratedCmp = Component({
+        template: nodeDescriptor.template,
+        selector: nodeDescriptor.name,
+      })(nodeDescriptor.viewClass);
+
+      debugger;
+
+      this.exprCanvas.createEmbeddedView()
+
+    let factory = this.componentFactoryResolver.resolveComponentFactory(decoratedCmp);
+    let ComponentRef = this.exprCanvas.createComponent(factory);
   }
   /**
      * Transforms a document coordinate to the Canvas coordinate.
@@ -68,29 +82,29 @@ export class ExprCanvasComponent implements OnInit, OnDestroy {
    * Returns the horizontal scroll position of an expr-canvas
    */
   getScrollLeft(): number {
-    return this.baseContainer.scrollLeft;
+    return this.exprCanvasHost.scrollLeft;
   }
   /**
    * Returns the vertical scroll position of an expr-canvas
    */
   getScrollTop(): number {
-    return this.baseContainer.scrollTop;
+    return this.exprCanvasHost.scrollTop;
   }
   /**
    * Returns the left position of an element relative to the document
    */
   getAbsoluteLeft(): number {
-    return this.getScrollLeft() + this.baseContainer.getBoundingClientRect().left;
+    return this.getScrollLeft() + this.exprCanvasHost.getBoundingClientRect().left;
   }
   /**
    * Returns the top position of an element relative to the document
    */
   getAbsoluteTop(): number {
-    return this.getScrollTop() + this.baseContainer.getBoundingClientRect().top;
+    return this.getScrollTop() + this.exprCanvasHost.getBoundingClientRect().top;
   }
 
   isPointInContainer(point: ICoordinate): boolean {
-    let rect = this.baseContainer.getBoundingClientRect();
+    let rect = this.exprCanvasHost.getBoundingClientRect();
 
     return rect.left < point.x && point.x < rect.right
       && rect.top < point.y && point.y < rect.bottom;
@@ -102,11 +116,4 @@ export class ExprCanvasComponent implements OnInit, OnDestroy {
 
 }
 
-type TDrop = {
-  event: DragEvent,
-  dropEffect: DropEffect,
-  isExternal: boolean,
-  data: IDroppableToolboxItem,
-  index: number,
-  type: string,
-} 
+type TDrop = { event: DragEvent, isExternal: boolean, data: IDroppableToolboxItem, index: number, type: string }; 

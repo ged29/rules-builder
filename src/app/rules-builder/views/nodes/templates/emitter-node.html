@@ -1,29 +1,22 @@
-﻿<div class="node one-size" 
-     emitter-node-view=""
-     id="{{::emitterNVCtrl.node.id}}">
-    <div class="title" title="{{::emitterNVCtrl.nodeTitle}}">
-        {{::emitterNVCtrl.nodeCaption }}
-        <span data-ng-if="behaviorCtrl.inDevMode">({{::emitterNVCtrl.node.sequentialNumber}})</span>
+﻿<div class="node one-size" emitter-node-view="" [id]="node.id">
+    <div class="title" title="{{nodeTitle}}">
+        {{nodeCaption}}
+        <span ngIf="inDevMode">({{node.sequentialNumber}})</span>
     </div>
     <div class="functional-block">
         <div class="body">
-            <input type="text" spellcheck="false" autocomplete="off"
-                   placeholder="{{::emitterNVCtrl.viewModel.controlAttrs.fieldPlaceholder | translate}}"
-                   maxlength="{{::emitterNVCtrl.viewModel.controlAttrs.fieldLength}}"
-                   title="{{emitterNVCtrl.viewModel.validationError | translate}}"
-                   ng-class="{'invalid' : !emitterNVCtrl.viewModel.isValid}"
-                   ng-trim="true"
-                   ng-disabled="::emitterNVCtrl.isReadOnly"
-                   ng-model="emitterNVCtrl.viewModel.value"
-                   ng-keydown="emitterNVCtrl.isNumeric && emitterNVCtrl.onKeyDown($event, 'OnlyNumeric')"
-                   ng-paste="emitterNVCtrl.isNumeric && emitterNVCtrl.onPaste($event, 'OnlyNumeric')"
-                   ng-change="emitterNVCtrl.emitSignal()" />
+            <input type="text" spellcheck="false" autocomplete="off"                 
+                max-length="{{viewModel.controlAttrs.fieldLength}}"                 
+                [class.invalid]="viewModel.isValid" 
+                [disabled]="isReadOnly"
+                [(ngModel)]="viewModel.value" 
+                (keydown)="isNumeric && onKeyDown($event, 'OnlyNumeric')"
+                (paste)="isNumeric && onPaste($event, 'OnlyNumeric')"                 
+                (change)="emitSignal()" />
         </div>
         <div class="output-ports">
-            <div class="port is-terminator"
-                 id="{{::emitterNVCtrl.node.outputPort.id}}"
-                 title="{{::emitterNVCtrl.node.outputPort.title | translate}}">
-                {{::emitterNVCtrl.node.outputPort.marker}}
+            <div class="port is-terminator" id="{{node.outputPort.id}}">
+                {{node.outputPort.marker}}
             </div>
         </div>
     </div>

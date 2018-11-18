@@ -80,7 +80,8 @@ export interface INodeDescriptor {
     hasInputPorts?: boolean;
     firstOutputPort?: IPortDescriptor;
     //UI template to which the node is bound to
-    templateId: string;
+    template: string;
+    viewClass: any;
     //sets the number of the exporting turn of node during the persistence of expression canvas
     exportPriority: number;
 
